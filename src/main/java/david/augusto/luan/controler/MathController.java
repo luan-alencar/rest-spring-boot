@@ -14,22 +14,18 @@ public class MathController {
 	@RequestMapping(value = "/soma/{numeroUm}/{numeroDois}", method = RequestMethod.GET)
 	public Double soma(@PathVariable("numeroUm") String numeroUm, @PathVariable("numeroDois") String numeroDois)
 			throws Exception {
-		extracted(numeroUm, numeroDois);
+		// metodo extraido
+		ifNotNumber(numeroUm, numeroDois);
 		Double soma = converterParaDouble(numeroUm) + converterParaDouble(numeroDois);
 		return soma;
-	}
-
-	private void extracted(String numeroUm, String numeroDois) {
-		if (!isNumero(numeroUm) || !isNumero(numeroDois)) {
-			throw new UnsuportedMathOperationException("Por favor, insira um numero valido");
-		}
 	}
 
 	// metodo de subtracap
 	@RequestMapping(value = "/subtracao/{numeroUm}/{numeroDois}", method = RequestMethod.GET)
 	public Double subtracao(@PathVariable("numeroUm") String numeroUm, @PathVariable("numeroDois") String numeroDois)
 			throws Exception {
-		extracted(numeroUm, numeroDois);
+		// metodo extraido
+		ifNotNumber(numeroUm, numeroDois);
 		Double subtracao = converterParaDouble(numeroUm) - converterParaDouble(numeroDois);
 		return subtracao;
 	}
@@ -38,9 +34,20 @@ public class MathController {
 	@RequestMapping(value = "/multiplicacao/{numeroUm}/{numeroDois}", method = RequestMethod.GET)
 	public Double multiplicacao(@PathVariable("numeroUm") String numeroUm,
 			@PathVariable("numeroDois") String numeroDois) throws Exception {
-		extracted(numeroUm, numeroDois);
+		// metodo extraido
+		ifNotNumber(numeroUm, numeroDois);
 		Double multiplicacao = converterParaDouble(numeroUm) * converterParaDouble(numeroDois);
 		return multiplicacao;
+	}
+
+	// metodo de divisao
+	@RequestMapping(value = "/divisao/{numeroUm}/{numeroDois}", method = RequestMethod.GET)
+	public Double divisao(@PathVariable("numeroUm") String numeroUm, @PathVariable("numeroDois") String numeroDois)
+			throws Exception {
+		// metodo extraido
+		ifNotNumber(numeroUm, numeroDois);
+		Double divisao = converterParaDouble(numeroUm) / converterParaDouble(numeroDois);
+		return divisao;
 	}
 
 	private Double converterParaDouble(String strNumero) {
@@ -57,5 +64,12 @@ public class MathController {
 			return false;
 		String numero = strNumero.replaceAll(",", ".");
 		return numero.matches("[-+]?[0-9]*\\.?[0-9]+");
+	}
+
+	// metodo extraido
+	private void ifNotNumber(String numeroUm, String numeroDois) {
+		if (!isNumero(numeroUm) || !isNumero(numeroDois)) {
+			throw new UnsuportedMathOperationException("Por favor, insira um numero valido");
+		}
 	}
 }
