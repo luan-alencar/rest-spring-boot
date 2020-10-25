@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import david.augusto.luan.convertores.ConverterNumero;
 import david.augusto.luan.exception.UnsuportedMathOperationException;
-import david.augusto.luan.utils.IsNumero;
 
 @RestController
 public class MathController {
@@ -28,7 +27,8 @@ public class MathController {
 			throws Exception {
 		// metodo extraido
 		ifNotNumber(numeroUm, numeroDois);
-		Double subtracao = ConverterNumero.converterParaDouble(numeroUm) - ConverterNumero.converterParaDouble(numeroDois);
+		Double subtracao = ConverterNumero.converterParaDouble(numeroUm)
+				- ConverterNumero.converterParaDouble(numeroDois);
 		return subtracao;
 	}
 
@@ -38,7 +38,8 @@ public class MathController {
 			@PathVariable("numeroDois") String numeroDois) throws Exception {
 		// metodo extraido
 		ifNotNumber(numeroUm, numeroDois);
-		Double multiplicacao = ConverterNumero.converterParaDouble(numeroUm) * ConverterNumero.converterParaDouble(numeroDois);
+		Double multiplicacao = ConverterNumero.converterParaDouble(numeroUm)
+				* ConverterNumero.converterParaDouble(numeroDois);
 		return multiplicacao;
 	}
 
@@ -48,7 +49,8 @@ public class MathController {
 			throws Exception {
 		// metodo extraido
 		ifNotNumber(numeroUm, numeroDois);
-		Double divisao = ConverterNumero.converterParaDouble(numeroUm) / ConverterNumero.converterParaDouble(numeroDois);
+		Double divisao = ConverterNumero.converterParaDouble(numeroUm)
+				/ ConverterNumero.converterParaDouble(numeroDois);
 		return divisao;
 	}
 
@@ -56,7 +58,7 @@ public class MathController {
 	@RequestMapping(value = "/media/{numero1}/{numero2}/{numero3}", method = RequestMethod.GET)
 	public Double media(@PathVariable("numero1") String numero1, @PathVariable("numero2") String numero2,
 			@PathVariable("numero3") String numero3) throws Exception {
-		if (!isNumero(numero1) || !isNumero(numero2) || !isNumero(numero3))
+		if (!ConverterNumero.isNumero(numero1) || !ConverterNumero.isNumero(numero2) || !ConverterNumero.isNumero(numero3))
 			throw new UnsuportedMathOperationException("Por favor, insira um numero valido");
 		Double media = ((ConverterNumero.converterParaDouble(numero1) + ConverterNumero.converterParaDouble(numero2)
 				+ ConverterNumero.converterParaDouble(numero3)) / 3);
@@ -67,23 +69,16 @@ public class MathController {
 	// metodo de raiz quadrada
 	@RequestMapping(value = "/raiz/{numero}", method = RequestMethod.GET)
 	public Double raiz(@PathVariable("numero") String numero) throws Exception {
-		if (!IsNumero.isNumero(numero))
+		if (!ConverterNumero.isNumero(numero))
 			throw new UnsuportedMathOperationException("Por favor, insira um numero valido");
 
 		Double raiz = Math.sqrt(ConverterNumero.converterParaDouble(numero));
 		return raiz;
 	}
 
-	private boolean isNumero(String strNumero) {
-		if (strNumero == null)
-			return false;
-		String numero = strNumero.replaceAll(",", ".");
-		return numero.matches("[-+]?[0-9]*\\.?[0-9]+");
-	}
-
 	// metodo extraido
-	private void ifNotNumber(String numeroUm, String numeroDois) {
-		if (!isNumero(numeroUm) || !isNumero(numeroDois)) {
+	public static void ifNotNumber(String numeroUm, String numeroDois) {
+		if (!ConverterNumero.isNumero(numeroUm) || !ConverterNumero.isNumero(numeroDois)) {
 			throw new UnsuportedMathOperationException("Por favor, insira um numero valido");
 		}
 	}
