@@ -1,4 +1,4 @@
-package david.augusto.luan.spring;
+package david.augusto.luan;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
