@@ -1,10 +1,11 @@
 package david.augusto.luan.exception;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import lombok.Getter;
 
-public class ExceptionResponse extends Exception {
+public class ExceptionResponse implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
@@ -16,7 +17,7 @@ public class ExceptionResponse extends Exception {
 	private String detalhes;
 
 	public ExceptionResponse(Date timestamp, String mensagem, String detalhes) {
-		this.timestamp = timestamp;
+		this.timestamp = new Date();
 		this.mensagem = mensagem;
 		this.detalhes = detalhes;
 	}
