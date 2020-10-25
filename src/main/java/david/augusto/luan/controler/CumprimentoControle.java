@@ -11,7 +11,7 @@ import david.augusto.luan.Cumprimento;
 @RestController
 public class CumprimentoControle {
 
-	private static final String template = "GHello, %s!";
+	private static final String template = "Hello, %s!";
 
 	private final AtomicLong counter = new AtomicLong();
 
