@@ -28,8 +28,7 @@ public class MathController {
 			throws Exception {
 		// metodo extraido
 		ifNotNumber(numeroUm, numeroDois);
-		Double subtracao = ConverterNumero.converterParaDouble(numeroUm)
-				- ConverterNumero.converterParaDouble(numeroDois);
+		Double subtracao = ConverterNumero.converterParaDouble(numeroUm) - ConverterNumero.converterParaDouble(numeroDois);
 		return subtracao;
 	}
 
@@ -39,7 +38,7 @@ public class MathController {
 			@PathVariable("numeroDois") String numeroDois) throws Exception {
 		// metodo extraido
 		ifNotNumber(numeroUm, numeroDois);
-		Double multiplicacao = ConverterNumero.converterParaDouble * ConverterNumero.converterParaDouble(numeroDois);
+		Double multiplicacao = ConverterNumero.converterParaDouble(numeroUm) * ConverterNumero.converterParaDouble(numeroDois);
 		return multiplicacao;
 	}
 
@@ -49,7 +48,7 @@ public class MathController {
 			throws Exception {
 		// metodo extraido
 		ifNotNumber(numeroUm, numeroDois);
-		Double divisao = converterParaDouble(numeroUm) / converterParaDouble(numeroDois);
+		Double divisao = ConverterNumero.converterParaDouble(numeroUm) / ConverterNumero.converterParaDouble(numeroDois);
 		return divisao;
 	}
 
