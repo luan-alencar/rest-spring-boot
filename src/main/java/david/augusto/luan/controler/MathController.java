@@ -20,7 +20,7 @@ public class MathController {
 		return soma;
 	}
 
-	// metodo de subtracap
+	// metodo de subtracao
 	@RequestMapping(value = "/subtracao/{numeroUm}/{numeroDois}", method = RequestMethod.GET)
 	public Double subtracao(@PathVariable("numeroUm") String numeroUm, @PathVariable("numeroDois") String numeroDois)
 			throws Exception {
@@ -48,6 +48,16 @@ public class MathController {
 		ifNotNumber(numeroUm, numeroDois);
 		Double divisao = converterParaDouble(numeroUm) / converterParaDouble(numeroDois);
 		return divisao;
+	}
+
+	// metodo de raiz quadrada
+	@RequestMapping(value = "/raiz/{numero}", method = RequestMethod.GET)
+	public Double raiz(@PathVariable("numero") String numero) throws Exception {
+		if (!isNumero(numero))
+			throw new UnsuportedMathOperationException("Por favor, insira um numero valido");
+
+		Double raiz = Math.sqrt(converterParaDouble(numero));
+		return raiz;
 	}
 
 	private Double converterParaDouble(String strNumero) {
