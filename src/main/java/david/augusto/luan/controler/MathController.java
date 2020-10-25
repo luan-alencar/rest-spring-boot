@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import david.augusto.luan.convertores.ConverterNumero;
 import david.augusto.luan.exception.UnsuportedMathOperationException;
+import david.augusto.luan.operacoes.Operacao;
 
 @RestController
 public class MathController {
@@ -17,8 +18,8 @@ public class MathController {
 			throws Exception {
 		// metodo extraido
 		ifNotNumber(numeroUm, numeroDois);
-		Double soma = ConverterNumero.converterParaDouble(numeroUm) + ConverterNumero.converterParaDouble(numeroDois);
-		return soma;
+		return Operacao.soma(ConverterNumero.converterParaDouble(numeroUm),
+				ConverterNumero.converterParaDouble(numeroDois));
 	}
 
 	// metodo de subtracao
@@ -27,9 +28,9 @@ public class MathController {
 			throws Exception {
 		// metodo extraido
 		ifNotNumber(numeroUm, numeroDois);
-		Double subtracao = ConverterNumero.converterParaDouble(numeroUm)
-				- ConverterNumero.converterParaDouble(numeroDois);
-		return subtracao;
+		return Operacao.subtracao(ConverterNumero.converterParaDouble(numeroUm),
+				ConverterNumero.converterParaDouble(numeroDois));
+
 	}
 
 	// metodo de multiplicacao
@@ -38,9 +39,8 @@ public class MathController {
 			@PathVariable("numeroDois") String numeroDois) throws Exception {
 		// metodo extraido
 		ifNotNumber(numeroUm, numeroDois);
-		Double multiplicacao = ConverterNumero.converterParaDouble(numeroUm)
-				* ConverterNumero.converterParaDouble(numeroDois);
-		return multiplicacao;
+		return Operacao.multiplicacao(ConverterNumero.converterParaDouble(numeroUm),
+				ConverterNumero.converterParaDouble(numeroDois));
 	}
 
 	// metodo de divisao
@@ -49,21 +49,18 @@ public class MathController {
 			throws Exception {
 		// metodo extraido
 		ifNotNumber(numeroUm, numeroDois);
-		Double divisao = ConverterNumero.converterParaDouble(numeroUm)
-				/ ConverterNumero.converterParaDouble(numeroDois);
-		return divisao;
+		return Operacao.divisao(ConverterNumero.converterParaDouble(numeroUm),
+				ConverterNumero.converterParaDouble(numeroDois));
 	}
 
 	// metodo de calcular a media
-	@RequestMapping(value = "/media/{numero1}/{numero2}/{numero3}", method = RequestMethod.GET)
-	public Double media(@PathVariable("numero1") String numero1, @PathVariable("numero2") String numero2,
-			@PathVariable("numero3") String numero3) throws Exception {
-		if (!ConverterNumero.isNumero(numero1) || !ConverterNumero.isNumero(numero2) || !ConverterNumero.isNumero(numero3))
-			throw new UnsuportedMathOperationException("Por favor, insira um numero valido");
-		Double media = ((ConverterNumero.converterParaDouble(numero1) + ConverterNumero.converterParaDouble(numero2)
-				+ ConverterNumero.converterParaDouble(numero3)) / 3);
-
-		return media;
+	@RequestMapping(value = "/media/{numero1}/{numero2}", method = RequestMethod.GET)
+	public Double media(@PathVariable("numero1") String numero1, @PathVariable("numero2") String numero2)
+			throws Exception {
+		// metodo estraido
+		ifNotNumber(numero1, numero2);
+		return Operacao.media(ConverterNumero.converterParaDouble(numero1),
+				ConverterNumero.converterParaDouble(numero2));
 	}
 
 	// metodo de raiz quadrada
@@ -71,9 +68,7 @@ public class MathController {
 	public Double raiz(@PathVariable("numero") String numero) throws Exception {
 		if (!ConverterNumero.isNumero(numero))
 			throw new UnsuportedMathOperationException("Por favor, insira um numero valido");
-
-		Double raiz = Math.sqrt(ConverterNumero.converterParaDouble(numero));
-		return raiz;
+		return Operacao.raiz(Math.sqrt(ConverterNumero.converterParaDouble(numero)));
 	}
 
 	// metodo extraido
