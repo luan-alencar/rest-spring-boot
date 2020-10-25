@@ -50,6 +50,18 @@ public class MathController {
 		return divisao;
 	}
 
+	// metodo de calcular a media
+	@RequestMapping(value = "/media/{numero1}/{numero2}/{numero3}", method = RequestMethod.GET)
+	public Double media(@PathVariable("numero1") String numero1, @PathVariable("numero2") String numero2,
+			@PathVariable("numero3") String numero3) throws Exception {
+		if (!isNumero(numero1) || !isNumero(numero2) || !isNumero(numero3))
+			throw new UnsuportedMathOperationException("Por favor, insira um numero valido");
+		Double media = ((converterParaDouble(numero1) + converterParaDouble(numero2) + converterParaDouble(numero3))
+				/ 3);
+
+		return media;
+	}
+
 	// metodo de raiz quadrada
 	@RequestMapping(value = "/raiz/{numero}", method = RequestMethod.GET)
 	public Double raiz(@PathVariable("numero") String numero) throws Exception {
