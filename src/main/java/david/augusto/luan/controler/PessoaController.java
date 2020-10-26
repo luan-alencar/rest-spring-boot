@@ -10,7 +10,7 @@ import david.augusto.luan.exception.UnsuportedMathOperationException;
 import david.augusto.luan.operacoes.Operacao;
 
 @RestController
-public class MathController {
+public class PessoaController {
 
 	// metodo de adicao
 	@RequestMapping(value = "/soma/{numeroUm}/{numeroDois}", method = RequestMethod.GET)
